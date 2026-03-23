@@ -1,0 +1,82 @@
+# electron-builder.yml
+# Konfiguracja dla CI/CD (GitHub Actions, Jenkins)
+# Użycie: electron-builder --config electron-builder.yml
+
+appId: com.sealm.launcher
+productName: SEALM
+copyright: "Copyright © 2025 SEALM Team"
+
+directories:
+  buildResources: assets
+  output: dist
+
+# Pliki do dołączenia do paczki
+files:
+  - build/**/*
+  - electron/**/*
+  - node_modules/**/*
+  - "!node_modules/.cache/**/*"
+  - "!node_modules/**/{test,tests,__tests__}/**/*"
+  - "!**/*.{md,txt,log,map}"
+
+# Windows — NSIS installer + portable
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+    - target: portable
+      arch: [x64]
+  icon: assets/icon.ico
+  artifactName: "SEALM-Setup-${version}-${arch}.${ext}"
+  requestedExecutionLevel: asInvoker
+  signingHashAlgorithms:
+    - sha256
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  allowElevation: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: SEALM
+  include: assets/installer.nsh
+  deleteAppDataOnUninstall: false
+  license: LICENSE.txt
+  installerLanguages:
+    - Polish
+    - English
+
+# Linux — AppImage + deb
+linux:
+  target:
+    - target: AppImage
+      arch: [x64]
+    - target: deb
+      arch: [x64]
+  icon: assets/icon.png
+  category: Game
+  artifactName: "SEALM-${version}-${arch}.${ext}"
+  desktop:
+    Name: SEALM
+    Comment: Game Launcher & Store
+    Categories: Game;
+
+# macOS — DMG
+mac:
+  target:
+    - target: dmg
+      arch: [x64, arm64]
+  icon: assets/icon.icns
+  category: public.app-category.games
+  hardenedRuntime: true
+  entitlements: assets/entitlements.mac.plist
+  entitlementsInherit: assets/entitlements.mac.plist
+  artifactName: "SEALM-${version}-${arch}.${ext}"
+
+# Auto-update via GitHub Releases
+publish:
+  provider: github
+  owner: twoj-nick-github
+  repo: sealm
+  releaseType: release
+  publishAutoUpdate: true

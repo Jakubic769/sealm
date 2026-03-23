@@ -1,0 +1,119 @@
+/* ProfilePage.module.css */
+.page { animation: fadeIn 0.2s ease; padding-bottom: 40px; }
+
+.accentLine { width: 36px; height: 3px; background: var(--accent-violet); border-radius: 2px; margin-bottom: 4px; }
+.pageTitle  { font-family: var(--font-display); font-size: 22px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+
+/* ── Profile card ── */
+.profileCard {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-xl); padding: 20px 22px;
+  display: flex; align-items: center; gap: 18px;
+  position: relative; overflow: hidden; margin-bottom: 14px;
+  transition: border-color var(--transition);
+}
+.profileCard:hover { border-color: var(--border-accent); }
+
+.profileGlow {
+  position: absolute; top: -60px; left: -60px; width: 220px; height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.avatar {
+  width: 76px; height: 76px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--accent-violet), var(--accent-cyan));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 26px; font-weight: 700; color: white;
+  border: 3px solid var(--accent-violet-bright); box-shadow: var(--shadow-glow-violet);
+  z-index: 1;
+}
+
+.profileInfo { flex: 1; z-index: 1; }
+.username { font-family: var(--font-display); font-size: 22px; font-weight: 700; letter-spacing: 1px; margin-bottom: 2px; }
+.email    { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; }
+
+.badges   { display: flex; gap: 6px; flex-wrap: wrap; }
+.badge {
+  padding: 2px 10px; border-radius: 4px; font-size: 9px;
+  font-family: var(--font-display); font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+}
+
+.profileActions { display: flex; flex-direction: column; gap: 7px; flex-shrink: 0; z-index: 1; }
+
+.editBtn, .logoutBtn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: var(--radius-md); cursor: pointer;
+  font-family: var(--font-display); font-size: 11px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase; transition: all var(--transition);
+}
+.editBtn   { background: var(--bg-elevated); border: 1px solid var(--border); color: var(--text-secondary); }
+.editBtn:hover { border-color: var(--border-hover); color: var(--text-primary); }
+.logoutBtn { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); color: #fca5a5; }
+.logoutBtn:hover { background: rgba(239,68,68,0.15); }
+
+/* ── Stats ── */
+.statsGrid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 10px; margin-bottom: 14px;
+}
+
+.statCard {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 14px 12px; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  transition: border-color var(--transition);
+}
+.statCard:hover { border-color: var(--border-hover); }
+
+.statVal   { font-family: var(--font-display); font-size: 22px; font-weight: 700; line-height: 1; }
+.statLabel { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-family: var(--font-display); }
+
+/* ── Achievements banner ── */
+.achBanner {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 12px 16px;
+  margin-bottom: 18px; text-decoration: none; cursor: pointer;
+  transition: border-color var(--transition);
+}
+.achBanner:hover { border-color: rgba(245,158,11,0.4); }
+
+.achBannerInfo { flex-shrink: 0; }
+.achBannerTitle { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: var(--text-primary); }
+.achBannerSub   { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+
+.achBannerBar  { flex: 1; display: flex; align-items: center; gap: 10px; }
+.achBannerTrack { flex: 1; height: 6px; background: var(--bg-elevated); border-radius: 3px; overflow: hidden; }
+.achBannerFill  { height: 100%; background: linear-gradient(90deg, #d97706, var(--accent-amber)); border-radius: 3px; transition: width 0.5s ease; }
+.achBannerPct   { font-family: var(--font-display); font-size: 12px; font-weight: 700; color: var(--accent-amber); min-width: 32px; text-align: right; }
+
+/* ── Section ── */
+.sectionLabel {
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--font-display); font-size: 11px; font-weight: 700;
+  letter-spacing: 2.5px; color: var(--text-muted); text-transform: uppercase;
+  margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
+}
+.sectionLink { font-size: 11px; color: var(--accent-violet-bright); text-decoration: none; letter-spacing: 0; text-transform: none; transition: color var(--transition); }
+.sectionLink:hover { color: var(--accent-cyan); }
+
+/* ── Recent games ── */
+.recentGrid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px;
+}
+
+.recentCard {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); overflow: hidden;
+  transition: border-color var(--transition);
+}
+.recentCard:hover { border-color: var(--border-accent); }
+
+.recentCover { }
+
+.recentInfo { padding: 8px 10px; }
+.recentTitle { font-family: var(--font-display); font-size: 12px; font-weight: 600; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.recentMeta  { font-size: 10px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }

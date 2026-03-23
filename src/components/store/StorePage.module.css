@@ -1,0 +1,326 @@
+/* StorePage.module.css */
+
+.page { animation: fadeIn 0.2s ease; }
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.accentLine {
+  width: 36px; height: 3px;
+  background: var(--accent-violet);
+  border-radius: 2px; margin-bottom: 4px;
+}
+
+.pageTitle {
+  font-size: 22px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 7px 12px;
+  flex: 1;
+  max-width: 340px;
+  transition: border-color var(--transition);
+}
+
+.searchBar:focus-within { border-color: var(--accent-violet); }
+
+.searchIcon { color: var(--text-muted); flex-shrink: 0; }
+
+.searchInput {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 13px;
+}
+
+.searchInput::placeholder { color: var(--text-muted); }
+
+.clearBtn {
+  background: none; border: none;
+  color: var(--text-muted); cursor: pointer; font-size: 12px;
+  transition: color var(--transition);
+}
+.clearBtn:hover { color: var(--text-primary); }
+
+/* ── Tabs ── */
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.tabBtn {
+  padding: 5px 14px;
+  border-radius: var(--radius-md);
+  font-size: 11px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  color: var(--text-muted);
+  transition: all var(--transition);
+}
+
+.tabBtn:hover { border-color: var(--accent-violet); color: var(--text-primary); }
+.tabActive { background: var(--accent-violet) !important; border-color: var(--accent-violet) !important; color: white !important; }
+
+/* ── Featured ── */
+.featured {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  margin-bottom: 22px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  transition: border-color var(--transition);
+}
+
+.featured:hover { border-color: var(--border-accent); }
+
+.featuredCover {
+  width: 130px;
+  height: 86px;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.featuredMeta { flex: 1; min-width: 0; }
+
+.featuredBadge {
+  display: inline-block;
+  background: var(--accent-violet-dim);
+  border: 1px solid var(--border-accent);
+  color: var(--accent-violet-bright);
+  font-size: 9px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 6px;
+}
+
+.featuredTitle {
+  font-size: 20px;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+  text-transform: none;
+}
+
+.featuredDesc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.featuredActions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+.btnPrimary {
+  background: var(--accent-violet);
+  border: none;
+  color: white;
+  padding: 7px 16px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btnPrimary:hover { background: var(--accent-violet-bright); transform: translateY(-1px); }
+
+.btnSecondary {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 7px 14px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btnSecondary:hover { border-color: var(--accent-cyan); color: var(--text-primary); }
+
+.featuredRating {
+  color: var(--accent-amber);
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  margin-left: auto;
+}
+
+/* ── Section label ── */
+.sectionLabel {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.count { color: var(--text-hint); }
+
+/* ── Grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+  gap: 12px;
+  padding-bottom: 24px;
+}
+
+/* ── Game Card ── */
+.gameCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color var(--transition);
+}
+
+.gameCard:hover { border-color: var(--border-accent); }
+
+.gameCover {
+  height: 94px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  letter-spacing: 1px;
+}
+
+.badgeNew, .badgeHot {
+  position: absolute;
+  top: 6px; right: 6px;
+  font-size: 8px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.badgeNew { background: var(--accent-cyan); color: white; }
+.badgeHot { background: #dc2626; color: white; }
+
+.gameInfo { padding: 8px 10px 10px; }
+
+.gameName {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gameMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 7px;
+}
+
+.gameGenre {
+  font-size: 9px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: var(--font-display);
+}
+
+.gameRating {
+  font-size: 10px;
+  color: var(--accent-amber);
+  font-family: var(--font-display);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.downloadBtn {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 5px;
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.downloadBtn:hover {
+  background: var(--accent-violet-dim);
+  border-color: var(--border-accent);
+  color: var(--accent-violet-bright);
+}
+
+/* ── Empty state ── */
+.empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+  font-size: 14px;
+}

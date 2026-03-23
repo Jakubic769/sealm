@@ -1,0 +1,108 @@
+/* FitGirlPage.module.css */
+.page { animation: fadeIn 0.2s ease; padding-bottom: 32px; }
+
+.header {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 14px; gap: 12px; flex-wrap: wrap;
+}
+.accentLine { width: 36px; height: 3px; background: #e05c1a; border-radius: 2px; margin-bottom: 4px; }
+.pageTitle  { font-family: var(--font-display); font-size: 22px; letter-spacing: 3px; text-transform: uppercase; }
+.pageSub    { font-size: 11px; color: var(--text-muted); margin-top: 3px; display: flex; align-items: center; gap: 5px; font-family: var(--font-display); }
+
+.syncBtn {
+  display: flex; align-items: center; gap: 7px;
+  background: var(--bg-elevated); border: 1px solid var(--border);
+  color: var(--text-secondary); padding: 7px 14px; border-radius: var(--radius-md);
+  font-family: var(--font-display); font-size: 12px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase; cursor: pointer;
+  transition: all var(--transition); white-space: nowrap;
+}
+.syncBtn:hover:not(:disabled) { border-color: #e05c1a; color: #e05c1a; }
+.syncBtnActive { border-color: #e05c1a; color: #e05c1a; }
+.syncBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.syncBtnBig {
+  display: flex; align-items: center; gap: 8px; margin-top: 16px;
+  background: #e05c1a; border: none; color: white;
+  padding: 10px 24px; border-radius: var(--radius-md);
+  font-family: var(--font-display); font-size: 13px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase; cursor: pointer;
+  transition: background var(--transition);
+}
+.syncBtnBig:hover { background: #f06a25; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinning { animation: spin 0.8s linear infinite; }
+
+/* ── Search ── */
+.searchBar {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--bg-panel); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 10px 14px; margin-bottom: 10px;
+  transition: border-color var(--transition);
+}
+.searchBar:focus-within { border-color: #e05c1a; }
+.searchInput { flex: 1; background: none; border: none; outline: none; color: var(--text-primary); font-family: var(--font-body); font-size: 14px; }
+.searchInput::placeholder { color: var(--text-muted); }
+.clearBtn { background: none; border: none; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; transition: color var(--transition); }
+.clearBtn:hover { color: var(--text-primary); }
+
+.resultsCount { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; font-family: var(--font-display); letter-spacing: 0.5px; }
+
+/* ── Empty state ── */
+.emptyState {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 60px 20px; color: var(--text-muted); text-align: center;
+  font-size: 15px; gap: 4px;
+}
+
+/* ── Progress banner ── */
+.progressBanner {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(224, 92, 26, 0.08); border: 1px solid rgba(224, 92, 26, 0.25);
+  border-radius: var(--radius-md); padding: 10px 14px; margin-bottom: 12px;
+  font-size: 12px; color: #e05c1a; font-family: var(--font-display); font-weight: 600;
+}
+
+/* ── Game list ── */
+.list { display: flex; flex-direction: column; gap: 2px; }
+
+.row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 7px 10px; border-radius: var(--radius-sm);
+  transition: background var(--transition);
+  border: 1px solid transparent;
+}
+.row:hover { background: var(--bg-card); border-color: var(--border); }
+
+.rowNum {
+  font-family: var(--font-display); font-size: 10px; color: var(--text-muted);
+  min-width: 32px; text-align: right; flex-shrink: 0;
+}
+
+.rowTitle { flex: 1; display: flex; align-items: center; gap: 6px; min-width: 0; }
+
+.gameTitle {
+  font-size: 13px; color: var(--text-primary); font-weight: 500;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.extLink {
+  color: var(--text-muted); display: flex; align-items: center;
+  flex-shrink: 0; opacity: 0; transition: opacity var(--transition);
+  text-decoration: none;
+}
+.row:hover .extLink { opacity: 1; }
+.extLink:hover { color: var(--accent-cyan); }
+
+.dlBtn {
+  display: flex; align-items: center; gap: 5px;
+  background: transparent; border: 1px solid var(--border);
+  color: var(--text-muted); padding: 4px 12px; border-radius: var(--radius-sm);
+  font-family: var(--font-display); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.5px; text-transform: uppercase; cursor: pointer;
+  transition: all var(--transition); white-space: nowrap; flex-shrink: 0;
+}
+.dlBtn:hover:not(:disabled) { background: rgba(224,92,26,0.1); border-color: #e05c1a; color: #e05c1a; }
+.dlBtnActive { border-color: #e05c1a; color: #e05c1a; }
+.dlBtn:disabled { opacity: 0.6; cursor: not-allowed; }

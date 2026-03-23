@@ -1,0 +1,69 @@
+/* AchievementsPage.module.css */
+.page { animation: fadeIn 0.2s ease; padding-bottom: 32px; }
+
+.header { display: flex; align-items: flex-end; margin-bottom: 16px; }
+.accentLine { width: 36px; height: 3px; background: var(--accent-amber); border-radius: 2px; margin-bottom: 4px; }
+.pageTitle  { font-family: var(--font-display); font-size: 22px; letter-spacing: 3px; text-transform: uppercase; }
+
+/* ── Stats bar ── */
+.statsBar {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 14px 20px; display: flex; align-items: center; gap: 20px;
+  margin-bottom: 16px;
+}
+.statBox { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.statVal { font-family: var(--font-display); font-size: 20px; font-weight: 700; line-height: 1; }
+.statLbl { font-size: 10px; color: var(--text-muted); font-family: var(--font-display); letter-spacing: 0.5px; text-transform: uppercase; margin-top: 2px; }
+
+.progressWrap { flex: 1; display: flex; align-items: center; gap: 10px; }
+.progressTrack { flex: 1; height: 8px; background: var(--bg-elevated); border-radius: 4px; overflow: hidden; }
+.progressFill  { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--accent-violet), var(--accent-violet-bright)); }
+.progressLabel { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: var(--accent-violet-bright); min-width: 36px; text-align: right; }
+
+/* ── Filter ── */
+.filterRow { display: flex; gap: 6px; margin-bottom: 14px; }
+.filterBtn {
+  padding: 5px 14px; border-radius: var(--radius-md);
+  font-size: 11px; font-family: var(--font-display); font-weight: 600;
+  letter-spacing: 0.5px; text-transform: uppercase; cursor: pointer;
+  border: 1px solid var(--border); background: var(--bg-panel); color: var(--text-muted);
+  transition: all var(--transition);
+}
+.filterBtn:hover { border-color: var(--accent-amber); color: var(--text-primary); }
+.filterActive { background: rgba(245,158,11,0.15); border-color: rgba(245,158,11,0.4); color: var(--accent-amber); }
+
+/* ── Grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 10px;
+}
+
+/* ── Card ── */
+.card {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px; border-radius: var(--radius-lg);
+  border: 1px solid var(--border); transition: all var(--transition);
+}
+.cardUnlocked { background: var(--bg-card); }
+.cardLocked   { background: var(--bg-deep); opacity: 0.6; }
+.cardUnlocked:hover { border-color: rgba(245,158,11,0.4); }
+
+.cardIcon {
+  width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3);
+  display: flex; align-items: center; justify-content: center; font-size: 22px;
+}
+.iconLocked { background: var(--bg-elevated); border-color: var(--border); color: var(--text-muted); }
+
+.cardBody { flex: 1; min-width: 0; }
+.cardTitle { font-family: var(--font-display); font-size: 13px; font-weight: 700; letter-spacing: 0.3px; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cardDesc  { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+.cardDate  { font-size: 10px; color: var(--accent-green); margin-top: 3px; font-family: var(--font-display); }
+
+.cardPoints {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  font-family: var(--font-display); font-size: 12px; font-weight: 700;
+  color: var(--accent-amber); flex-shrink: 0;
+}
+.cardLocked .cardPoints { color: var(--text-muted); }

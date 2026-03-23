@@ -1,0 +1,159 @@
+{
+  "name": "sealm",
+  "version": "1.0.0",
+  "description": "SEALM \u2013 Game Launcher & Store",
+  "main": "electron/main.js",
+  "homepage": "./",
+  "author": {
+    "name": "SEALM Team",
+    "email": "contact@sealm.app"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "electron": "electron .",
+    "electron:dev": "concurrently --kill-others \"cross-env BROWSER=none react-scripts start\" \"wait-on http://localhost:3000 && cross-env NODE_ENV=development electron .\"",
+    "electron:build": "npm run build && electron-builder",
+    "electron:build:win": "npm run build && cross-env CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --win",
+    "electron:build:linux": "npm run build && electron-builder --linux",
+    "electron:build:mac": "npm run build && electron-builder --mac",
+    "dist": "npm run build && electron-builder --win --linux",
+    "db:init": "node scripts/init-db.js",
+    "postinstall": "electron-builder install-app-deps",
+    "lint": "echo 'No linter configured'"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.0",
+    "zustand": "^4.5.0",
+    "better-sqlite3": "^12.0.0",
+    "axios": "^1.6.7",
+    "cheerio": "^1.0.0-rc.12",
+    "bcryptjs": "^2.4.3",
+    "uuid": "^9.0.0",
+    "framer-motion": "^11.0.6",
+    "react-hot-toast": "^2.4.1",
+    "lucide-react": "^0.323.0",
+    "date-fns": "^3.3.1",
+    "electron-store": "^8.2.0",
+    "ws": "^8.16.0",
+    "webtorrent": "^2.5.0",
+    "electron-updater": "^6.1.8",
+    "cross-env": "^7.0.3",
+    "firebase-admin": "^12.0.0",
+    "firebase": "10.12.0"
+  },
+  "devDependencies": {
+    "react-scripts": "5.0.1",
+    "electron": "^29.0.1",
+    "electron-builder": "^24.9.1",
+    "concurrently": "^8.2.2",
+    "wait-on": "^7.2.0"
+  },
+  "build": {
+    "appId": "com.sealm.launcher",
+    "productName": "SEALM",
+    "copyright": "Copyright \u00a9 2025 SEALM Team",
+    "directories": {
+      "buildResources": "assets",
+      "output": "dist"
+    },
+    "files": [
+      "build/**/*",
+      "electron/**/*",
+      "node_modules/**/*",
+      "!node_modules/.cache/**/*",
+      "!node_modules/**/{test,tests,spec,__tests__}/**/*",
+      "!node_modules/**/*.{md,txt,log,map}"
+    ],
+    "extraResources": [
+      {
+        "from": "bin/",
+        "to": "bin/",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "SEALM-${version}-portable.${ext}",
+      "signingHashAlgorithms": null,
+      "sign": null
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.png",
+      "category": "Game",
+      "artifactName": "SEALM-${version}.${ext}",
+      "desktop": {
+        "Name": "SEALM",
+        "Comment": "Game Launcher & Store",
+        "Categories": "Game;"
+      }
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.icns",
+      "category": "public.app-category.games",
+      "artifactName": "SEALM-${version}.${ext}",
+      "hardenedRuntime": true,
+      "entitlements": "assets/entitlements.mac.plist",
+      "entitlementsInherit": "assets/entitlements.mac.plist"
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "twoj-nick-github",
+      "repo": "sealm",
+      "releaseType": "release"
+    },
+    "electronDownload": {
+      "mirror": "https://npmmirror.com/mirrors/electron/"
+    },
+    "extends": null,
+    "asarUnpack": [
+      "node_modules/webtorrent/**/*",
+      "node_modules/better-sqlite3/**/*",
+      "node_modules/utp-native/**/*"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version"
+    ]
+  }
+}
