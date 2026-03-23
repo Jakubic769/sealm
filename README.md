@@ -52,7 +52,6 @@ SEALM is a **next-generation game launcher** built from scratch by a 14-year-old
 
 - **Windows 10 / 11** (x64)
 - **Node.js** >= 18.x + npm >= 9.x *(for building from source)*
-- **aria2c.exe** placed in the `bin/` folder — [download here](https://github.com/aria2/aria2/releases)
 - **Visual C++ Redistributable** — [All-in-One](https://www.techpowerup.com/download/visual-c-redistributable-runtime-package-all-in-one/)
 - **.NET Framework** — [Microsoft](https://dotnet.microsoft.com/en-us/download/dotnet-framework)
 
@@ -69,14 +68,10 @@ cd sealm
 npm install
 npm install firebase
 
-# 3. Place aria2c.exe in bin/
-# Download from https://github.com/aria2/aria2/releases
-# Place at: sealm/bin/aria2c.exe
-
-# 4. Start in development mode
+# 3. Start in development mode
 npm run electron:dev
 
-# 5. Or build a portable .exe
+# 4. Or build a portable .exe
 npm run electron:build:win
 ```
 
@@ -87,7 +82,7 @@ npm run electron:build:win
 ```
 sealm/
 ├── bin/
-│   └── aria2c.exe                  ← place here manually
+│   └── aria2c.exe                  ← the download subprocess
 ├── electron/
 │   ├── main.js                     ← main process, IPC, SQLite
 │   ├── preload.js                  ← secure IPC bridge
