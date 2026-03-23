@@ -1,259 +1,204 @@
-# SEALM — Game Launcher & Store
+# SEALM — Game Launcher
 
-> Electron + React + SQLite · Dark UI · FitGirl Integration · Torrent Downloads
+> Electron + React + SQLite + Firebase · Dark Cyberpunk UI · FitGirl Integration · aria2 Downloads · Online Backend
 
----
-
-## Stack
-
-| Warstwa       | Technologia                           |
-|---------------|---------------------------------------|
-| Shell         | Electron 29 (frameless window)        |
-| Frontend      | React 18 + React Router 6             |
-| State         | Zustand                               |
-| Baza danych   | SQLite via `better-sqlite3`           |
-| Animacje      | Framer Motion                         |
-| Powiadomienia | react-hot-toast                       |
-| Scraping      | Axios + Cheerio (FitGirl Repacks)     |
-| Torrenty      | Magnet URI → system torrent client    |
-| Styl          | CSS Modules + Google Fonts (Rajdhani + Exo 2) |
+![Version](https://img.shields.io/badge/version-1.0.0-7c3aed?style=flat-square)
+![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-06b6d4?style=flat-square)
+![License](https://img.shields.io/badge/license-MIT-10b981?style=flat-square)
+![Electron](https://img.shields.io/badge/built%20with-Electron%2029-a855f7?style=flat-square)
 
 ---
 
-## Wymagania
+## What is SEALM?
 
-- **Node.js** ≥ 18.x
-- **npm** ≥ 9.x
-- Klient torrent (np. **qBittorrent**) zainstalowany w systemie
-- Windows 10/11 lub Linux (testowane na Ubuntu 22.04)
+SEALM is a **next-generation game launcher** built from scratch by a 14-year-old developer from Poland. It combines a FitGirl Repacks catalog browser, aria2-powered torrent downloads, a game library with playtime tracking, and a full online backend with real-time chat, friends system, and achievement tracking — all in a dark cyberpunk UI.
+
+**This is my first big project.**
 
 ---
 
-## Instalacja i uruchomienie
+## Features
+
+| Feature | Description |
+|---------|-------------|
+| 🎮 Game Library | Add any game, track playtime, launch with one click |
+| ⬇ FitGirl Downloads | Browse the full FitGirl catalog, download via aria2 |
+| 💬 Global Chat | Real-time chat via Firebase Realtime Database |
+| 👥 Friends System | Add friends, see online/offline status in real time |
+| 🏆 Trophies | 14 achievements tracked online via Firebase |
+| 👤 Profiles | Avatar URL, bio, playtime stats synced to Firebase |
+| 🔐 Auth | Firebase Authentication with email password reset |
+| 📊 Stats | Playtime per game, total hours, games count — synced online |
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Shell | Electron 29 (frameless window) |
+| Frontend | React 18 + React Router 6 |
+| State | Zustand |
+| Local DB | SQLite via `better-sqlite3` |
+| Online Backend | Firebase Auth + Realtime Database |
+| Animations | Framer Motion |
+| Downloads | aria2c via subprocess + JSON-RPC |
+| Scraping | Axios + Cheerio (FitGirl Repacks) |
+| Styling | CSS Modules + Google Fonts (Rajdhani + Exo 2) |
+
+---
+
+## Requirements
+
+- **Windows 10 / 11** (x64)
+- **Node.js** >= 18.x + npm >= 9.x *(for building from source)*
+- **aria2c.exe** placed in the `bin/` folder — [download here](https://github.com/aria2/aria2/releases)
+- **Visual C++ Redistributable** — [All-in-One](https://www.techpowerup.com/download/visual-c-redistributable-runtime-package-all-in-one/)
+- **.NET Framework** — [Microsoft](https://dotnet.microsoft.com/en-us/download/dotnet-framework)
+
+---
+
+## Quick Start
 
 ```bash
-# 1. Klonuj / wypakuj projekt
+# 1. Clone the repository
+git clone https://github.com/jakubic769/sealm.git
 cd sealm
 
-# 2. Zainstaluj zależności
+# 2. Install dependencies
 npm install
+npm install firebase
 
-# 3. Uruchom w trybie deweloperskim (React dev server + Electron)
+# 3. Place aria2c.exe in bin/
+# Download from https://github.com/aria2/aria2/releases
+# Place at: sealm/bin/aria2c.exe
+
+# 4. Start in development mode
 npm run electron:dev
 
-# 4. (Opcjonalnie) Zbuduj plik wykonywalny
-npm run electron:build
+# 5. Or build a portable .exe
+npm run electron:build:win
 ```
-
-> Przy pierwszym uruchomieniu Electron automatycznie tworzy bazę SQLite
-> w `%APPDATA%/sealm/sealm.db` (Windows) lub `~/.config/sealm/sealm.db` (Linux).
 
 ---
 
-## Struktura projektu
+## Project Structure
 
 ```
 sealm/
+├── bin/
+│   └── aria2c.exe                  ← place here manually
 ├── electron/
-│   ├── main.js          # Główny proces Electron — okno, IPC, baza danych
-│   └── preload.js       # Bezpieczny most IPC (contextBridge)
-│
+│   ├── main.js                     ← main process, IPC, SQLite
+│   ├── preload.js                  ← secure IPC bridge
+│   ├── aria2Manager.js             ← aria2c subprocess + JSON-RPC
+│   ├── achievementsManager.js      ← SQLite achievements
+│   ├── fitgirlCatalog.js           ← FitGirl scraper
+│   └── igdbClient.js               ← IGDB cover art
 ├── src/
-│   ├── App.js           # Router + auth gate
-│   ├── index.css        # Design system — tokeny CSS, czcionki, animacje
-│   │
+│   ├── App.js                      ← router + Firebase auth listener
+│   ├── lib/
+│   │   ├── firebase.js             ← Firebase app config
+│   │   ├── firebaseAuth.js         ← auth wrapper
+│   │   ├── firebaseChat.js         ← real-time chat + presence
+│   │   ├── firebaseFriends.js      ← friends system
+│   │   └── firebaseAchievements.js ← 14 trophies
 │   ├── store/
-│   │   ├── authStore.js       # Zustand: logowanie, rejestracja, sesja
-│   │   └── downloadsStore.js  # Zustand: kolejka pobrań, polling postępu
-│   │
+│   │   ├── authStore.js            ← Zustand auth
+│   │   └── downloadsStore.js       ← Zustand downloads
 │   └── components/
-│       ├── auth/
-│       │   ├── AuthLayout.js        # Ekran logowania / rejestracji
-│       │   └── AuthLayout.module.css
-│       │
-│       ├── layout/
-│       │   ├── AppLayout.js         # Shell: titlebar + sidebar + <Outlet>
-│       │   └── AppLayout.module.css
-│       │
-│       ├── store/
-│       │   ├── StorePage.js         # Sklep: siatka gier, wyszukiwarka, FitGirl
-│       │   └── StorePage.module.css
-│       │
-│       ├── library/
-│       │   └── LibraryPage.js       # Biblioteka zainstalowanych gier
-│       │
-│       ├── downloads/
-│       │   ├── DownloadsPage.js     # Kolejka pobrań z paskami postępu
-│       │   └── DownloadsPage.module.css
-│       │
-│       ├── chat/
-│       │   └── ChatPage.js          # Czat ogólny + wiadomości 1:1
-│       │
-│       ├── settings/
-│       │   └── SettingsPage.js      # Ustawienia z przełącznikami
-│       │
-│       └── profile/
-│           └── ProfilePage.js       # Profil użytkownika, statystyki, wylogowanie
-│
-├── scripts/
-│   └── init-db.js       # Ręczna inicjalizacja bazy (dev)
-│
-├── public/
-│   └── index.html
-│
+│       ├── auth/                   ← login, register, forgot password
+│       ├── fitgirl/                ← store page + game detail
+│       ├── library/                ← library, add/remove/configure
+│       ├── downloads/              ← download queue with phases
+│       ├── chat/                   ← real-time chat
+│       ├── friends/                ← friends, requests, search
+│       ├── profile/                ← profile, edit modal
+│       ├── achievements/           ← trophies page
+│       └── settings/               ← app settings
 └── package.json
 ```
 
 ---
 
-## Architektura IPC
+## Firebase Setup
 
-Komunikacja między UI (renderer) a logiką (main) odbywa się przez
-**bezpieczny most `preload.js`** z `contextIsolation: true`.
+1. Create a project at [console.firebase.google.com](https://console.firebase.google.com)
+2. Enable **Authentication** → Email/Password
+3. Enable **Realtime Database** → Start in test mode
+4. Replace config in `src/lib/firebase.js`
+5. Set database rules:
 
-```
-React UI
-   │  window.sealm.auth.login(...)
-   ▼
-preload.js (contextBridge)
-   │  ipcRenderer.invoke('auth:login', ...)
-   ▼
-electron/main.js
-   │  ipcMain.handle('auth:login', ...)
-   │       └─ SQLite query via better-sqlite3
-   ▼
-{ success, token, user }
-```
-
-Dostępne kanały IPC:
-
-| Kanał                  | Opis                                          |
-|------------------------|-----------------------------------------------|
-| `auth:register`        | Rejestracja nowego konta                      |
-| `auth:login`           | Logowanie, tworzenie sesji                    |
-| `auth:logout`          | Usunięcie tokenu sesji                        |
-| `auth:validate`        | Walidacja tokenu przy starcie                 |
-| `games:list`           | Lista gier (filtrowanie, wyszukiwanie)        |
-| `games:get`            | Szczegóły gry + recenzje                      |
-| `library:list`         | Biblioteka zainstalowanych gier użytkownika   |
-| `library:launch`       | Uruchamianie pliku .exe gry                   |
-| `downloads:list`       | Lista pobrań z postępem                       |
-| `downloads:add`        | Dodanie gry do kolejki pobrań                 |
-| `downloads:remove`     | Usunięcie z kolejki                           |
-| `reviews:add`          | Dodanie/aktualizacja recenzji                 |
-| `messages:list`        | Historia wiadomości (kanał lub DM)            |
-| `messages:send`        | Wysłanie wiadomości + push do renderera       |
-| `users:online`         | Lista zalogowanych użytkowników               |
-| `fitgirl:search`       | Wyszukiwanie gry na fitgirl-repacks.site      |
-| `fitgirl:getMagnet`    | Pobranie linku magnet ze strony FitGirl       |
-| `torrent:start`        | Otwarcie linku magnet przez system            |
-| `window:minimize/maximize/close` | Kontrola okna                   |
-
----
-
-## Schemat bazy danych (SQLite)
-
-```sql
-users       — id, username, email, password (bcrypt), avatar_url
-games       — id, title, genre, description, cover_url, rating, size_gb, fitgirl_slug, tags
-library     — user_id → game_id, install_path, executable, playtime_min
-downloads   — user_id → game_id, status, progress, speed_kbps, eta_seconds, magnet_uri
-reviews     — user_id → game_id, rating(1-10), body
-messages    — sender_id, receiver_id?, channel, body
-sessions    — user_id, token, expires_at
+```json
+{
+  "rules": {
+    "users":          { ".read": "auth != null", "$uid": { ".write": "$uid === auth.uid" }},
+    "chat":           { ".read": "auth != null", ".write": "auth != null" },
+    "presence":       { "$uid": { ".read": "auth != null", ".write": "$uid === auth.uid" }},
+    "friends":        { "$uid": { ".read": "$uid === auth.uid", ".write": "$uid === auth.uid" }},
+    "friendRequests": { "$uid": { ".read": "$uid === auth.uid", ".write": "auth != null" }},
+    "typing":         { ".read": "auth != null", ".write": "auth != null" },
+    "achievements":   { "$uid": { ".read": "auth != null", ".write": "$uid === auth.uid" }},
+    "counters":       { "$uid": { ".read": "$uid === auth.uid", ".write": "$uid === auth.uid" }}
+  }
+}
 ```
 
 ---
 
-## Przepływ pobierania gry
+## Download Flow (aria2)
 
 ```
-Użytkownik klika "Pobierz"
+User clicks "Download"
         │
         ▼
-fitgirl:search → szukaj tytuł na fitgirl-repacks.site
+FitGirl page → scrape magnet link
         │
         ▼
-fitgirl:getMagnet → scraple link magnet z pierwszego wyniku
+downloads:add → SQLite record (status: queued)
         │
         ▼
-torrent:start → shell.openExternal(magnetUri) → qBittorrent/systemowy klient
+torrent:start → aria2Manager.add(magnetUri, savePath)
         │
         ▼
-downloads:add → dodaje wpis do tabeli downloads (status: 'queued' → 'downloading')
+aria2c subprocess → JSON-RPC polling every 3s
+Phases: connecting → allocating → downloading → verifying
         │
         ▼
-useDownloadsStore.startPolling() → symulacja / podpięcie pod libtorrent IPC
+torrent:done → "Install" button appears
         │
         ▼
-progress = 100% → status: 'installing' → shell.openPath(installer.exe)
+torrent:launchSetup → finds setup.exe → shell.openPath()
 ```
-
----
-
-## Rozszerzanie projektu
-
-### Podpięcie prawdziwego libtorrent
-
-Zainstaluj `webtorrent` lub binding Node.js dla `libtorrent`:
-
-```bash
-npm install webtorrent
-```
-
-W `electron/main.js` zamień handler `torrent:start` na pełną implementację
-z WebTorrent + IPC progress events:
-
-```js
-const WebTorrent = require('webtorrent')
-const client = new WebTorrent()
-
-ipcMain.handle('torrent:start', async (_, { magnetUri, savePath }) => {
-  client.add(magnetUri, { path: savePath }, (torrent) => {
-    torrent.on('download', () => {
-      mainWindow.webContents.send('torrent:progress', {
-        infoHash: torrent.infoHash,
-        progress: torrent.progress * 100,
-        downloadSpeed: torrent.downloadSpeed,
-        timeRemaining: torrent.timeRemaining,
-      })
-    })
-    torrent.on('done', () => {
-      mainWindow.webContents.send('torrent:done', { infoHash: torrent.infoHash })
-    })
-  })
-  return { success: true }
-})
-```
-
-### WebSocket czat w czasie rzeczywistym
-
-Dodaj `ws` do zależności i utwórz WebSocket server w `main.js` dla
-wieloosobowego czatu bez pollingu.
-
-### Okładki z IGDB API
-
-Zarejestruj się na https://api.igdb.com i pobieraj okładki automatycznie
-przy seedowaniu bazy gier.
 
 ---
 
 ## Roadmap
 
-- [x] Autentykacja (login/rejestracja) + sesje SQLite
-- [x] Sklep z wyszukiwarką i kategoriami
-- [x] Integracja FitGirl Repacks (scraping + magnet)
-- [x] Kolejka pobrań z paskami postępu
-- [x] Biblioteka gier z uruchamianiem
-- [x] Czat ogólny + wiadomości 1:1
-- [x] Ustawienia z przełącznikami
-- [x] Profil użytkownika
-- [ ] Prawdziwy klient torrent (libtorrent / WebTorrent)
-- [ ] Automatyczny instalator FitGirl (.exe autorun)
-- [ ] Czat WebSocket w czasie rzeczywistym
-- [ ] Okładki gier z IGDB API
-- [ ] Powiadomienia systemowe (Electron Notification API)
-- [ ] Aktualizacje launchera (electron-updater)
-- [ ] Osiągnięcia i statystyki szczegółowe
-- [ ] Strona szczegółów gry z recenzjami
-- [ ] Screenshoty i galerie gier
+- [x] Firebase Auth (register, login, password reset via email)
+- [x] Real-time chat with typing indicators
+- [x] Friends system with online/offline presence
+- [x] 14 Trophies tracked in Firebase
+- [x] FitGirl catalog browser (A-Z + popular)
+- [x] aria2 torrent downloads with 4-phase tracking
+- [x] Game library with playtime tracking
+- [x] Avatar via URL, bio, profile editing
+- [ ] Code signing
+- [ ] Auto-updater via GitHub Releases
+- [ ] Auto-detect installed game after setup.exe completes
+- [ ] More trophies
+
+---
+
+## About
+
+Built by **Jakub** (Z4XQ) — a 14-year-old self-taught developer from Poland.  
+SEALM is my first large-scale project. I mainly work in C++ and Python, and built this to learn JavaScript, React and Electron.
+
+🔗 [guns.lol/z4xq](https://guns.lol/z4xq)
+
+---
+
+## License
+
+MIT — see [LICENSE.txt](LICENSE.txt)
